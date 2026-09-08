@@ -1,0 +1,60 @@
+name: tests
+
+# This toolkit needs unifai-guard. Nothing is installed from an index: the guard
+# is checked out as a sibling and put on PYTHONPATH, which is exactly the layout
+# run.py expects locally. If unifai-guard is ever published to PyPI, this can
+# become a plain `pip install unifai-guard` -- until then, no index is involved.
+#
+# The sibling checkout resolves to <owner-of-this-repo>/unifai-guard, so it works
+# unedited as long as both repos live under the same GitHub account. If the guard
+# ends up somewhere else, change `repository:` in the second checkout step.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12"]
+
+    name: python ${{ matrix.python-version }}
+
+    steps:
+      - name: Check out this toolkit
+        uses: actions/checkout@v4
+        with:
+          path: unifai-toolkit-numbers
+
+      - name: Check out unifai-guard next to it
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository_owner }}/unifai-guard
+          path: unifai-guard
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: No third-party packages are installed
+        run: |
+          python -c "import sys; print(sys.version)"
+          python -m pip list
+
+      - name: Unit tests
+        working-directory: unifai-toolkit-numbers
+        env:
+          PYTHONPATH: ${{ github.workspace }}/unifai-guard
+        run: python -m unittest discover -s tests -v
+
+      - name: Dry run lists all eight actions
+        working-directory: unifai-toolkit-numbers
+        run: python run.py --dry-run
