@@ -2,9 +2,9 @@
 
 **Exact decimal arithmetic for the numbers that decide a trade.**
 A toolkit for the UnifAI network. Eight actions, 81 tests, no dependencies beyond
-[`unifai-guard`](../unifai-guard).
+[`unifai-guard`](https://github.com/Dizz-Network-Dizzik/unifai-guard).
 
-> Unofficial and unaffiliated community work.
+> Unofficial and unaffiliated community work. Not financial advice: it computes, it does not recommend.
 
 ---
 
@@ -148,9 +148,11 @@ would be a poor place to start lying.
   promise about your venue.
 - **No advice.** These are formulas. What to do with them is not a function call.
 
+## Disclosure
+
+The author holds UAI (as of 2026-10-08). The holding is a reason to disclose,
+not a reason to withhold the work. Nothing here is investment advice.
+
 ## License
 
-Apache-2.0. `LICENSE` is a placeholder — replace it with the verbatim text from
-<https://www.apache.org/licenses/LICENSE-2.0.txt> before publishing. It was not
-reproduced from memory on purpose: a licence that is subtly wrong is worse than
-one that is obviously missing.
+Licensed under the Apache License, Version 2.0 — see [LICENSE](LICENSE) and [NOTICE](NOTICE).

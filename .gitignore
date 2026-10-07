@@ -5,3 +5,15 @@ __pycache__/
 *.egg-info/
 build/
 dist/
+
+# test and editor leftovers
+.pytest_cache/
+.coverage
+htmlcov/
+.vscode/
+.idea/
+
+# the toolkit key is read from the environment - never commit it
+.env
+.env.*
+!.env.example
